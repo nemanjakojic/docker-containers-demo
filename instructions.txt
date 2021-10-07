@@ -1,0 +1,47 @@
+sudo docker pull redis
+sudo docker run --name redis-test-instance -p 6379:6379 -d redis
+sudo docker ps -a
+
+Dockerize an ASP.NET Core Application:
+https://docs.docker.com/samples/dotnetcore/
+
+Install postman
+sudo snap install postman 
+
+Setup redis session cache
+https://medium.com/@kayamuhammet/asp-net-core-web-application-session-state-management-redis-implementation-dec75e0598c2
+
+Alternative redis cache
+https://requestmetrics.com/building/episode-16-using-redis-for-distributed-user-sessions-in-asp-net-core
+
+Run redis session container
+sudo docker run --name dist-session-container -p 6379:6379 -d redis
+sudo docker rm dist-session-container
+
+ASP.NET Core Session Management with Redis
+https://joonasw.net/view/redis-cache-session-store
+
+https://andrewlock.net/an-introduction-to-session-storage-in-asp-net-core/
+
+Install SQL Server Docker Image
+sudo docker pull mcr.microsoft.com/mssql/server
+
+Customize SQL Containers
+https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-docker-container-configure?view=sql-server-ver15&pivots=cs1-bash
+
+Run SQL Server in a docker container
+sudo docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Anjamen.098" -e "MSSQL_PID=Express" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+
+Connect to the SQL Server Instance
+docker exec -it <container_id|container_name> /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Anjamen.098
+
+Install docker compose 
+wget "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -O /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+Deploy multi-service application
+https://docs.microsoft.com/en-us/dotnet/architecture/microservices/multi-container-microservice-net-applications/multi-container-applications-docker-compose
+
+Tear down and remove all the deployed docker containers
+sudo docker-compose down
+

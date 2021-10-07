@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+#    web:
+#        build: .
+#        ports:
+#            - "8000:80"
+#        depends_on:
+#            - db
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    user: root
+    container_name: mssql-container
+    environment:
+      SA_PASSWORD: "TestPwd.098"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
+      # restart: always
+    ports:
+      - "1433:1433"
+    #volumes:
+    #  - /home/ubuntu/array-hw-netcore/data:/var/opt/mssql/data
+    #  - /home/ubuntu/array-hw-netcore/log:/var/opt/mssql/log
+
+  redis:
+    image: "redis"
+    ports:
+      - "6379:6379"
+    container_name: dist-session-container
