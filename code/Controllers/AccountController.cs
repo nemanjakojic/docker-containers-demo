@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using code.Model;
 using Microsoft.AspNetCore.Authorization;
+using code.Data;
 
 namespace code.Controllers
 {
@@ -15,10 +16,12 @@ namespace code.Controllers
     public class AccountController : ControllerBase
     {
         private readonly ILogger<AccountController> _logger;
+        private readonly AppDbContext _context;
 
-        public AccountController(ILogger<AccountController> logger)
+        public AccountController(ILogger<AccountController> logger, AppDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         [HttpPost]
@@ -27,6 +30,7 @@ namespace code.Controllers
         {
             Console.WriteLine($"user: { request.Username }, pass: { request.Password }");
             Console.WriteLine($"Session: { HttpContext.Session }, available{ HttpContext.Session.IsAvailable }");
+            var accounts = _context.Account.ToList();
             return Ok();
         }
 
@@ -51,7 +55,7 @@ namespace code.Controllers
             HttpContext.Session.Clear();
             
             // Invalidate the client cookie
-            Response.Cookies.Delete("ArraysCookie");
+            Response.Cookies.Delete("AppCookie");
             return Ok();
         }
     }
