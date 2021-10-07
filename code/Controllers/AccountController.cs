@@ -8,6 +8,10 @@ using Microsoft.Extensions.Logging;
 using code.Model;
 using Microsoft.AspNetCore.Authorization;
 using code.Data;
+using code.Core;
+using code.Core.Operations;
+using code.Core.Application;
+using code.Operations.LogOut;
 
 namespace code.Controllers
 {
@@ -17,46 +21,44 @@ namespace code.Controllers
     {
         private readonly ILogger<AccountController> _logger;
         private readonly AppDbContext _context;
+        private readonly IOperationProvider _appOperationProvider;
 
-        public AccountController(ILogger<AccountController> logger, AppDbContext context)
+        public AccountController(
+            ILogger<AccountController> logger, 
+            AppDbContext context,
+            IOperationProvider operationProvider)
         {
             _logger = logger;
             _context = context;
+            _appOperationProvider = operationProvider;
         }
 
         [HttpPost]
         [Route("signup")]
-        public IActionResult SignUp(SignUpRequest request) 
+        public async Task<IActionResult> SignUp(SignUpRequest request) 
         {
-            Console.WriteLine($"user: { request.Username }, pass: { request.Password }");
-            Console.WriteLine($"Session: { HttpContext.Session }, available{ HttpContext.Session.IsAvailable }");
-            var accounts = _context.Account.ToList();
-            return Ok();
+            var signUpOperation = _appOperationProvider.GetOperation<SignUpOperation>();
+            var result = await signUpOperation.Execute(request);
+            return Ok(result);
         }
 
         [HttpPost]
         [Route("login")]
-        public IActionResult LogIn(LogInRequest request) 
+        public async Task<IActionResult> LogIn(LogInRequest request) 
         {
-            Console.WriteLine($"user: { request.Username }, pass: { request.Password }");
-            Console.WriteLine($"Session: { HttpContext.Session }");
-            HttpContext.Session.SetString("username", "nkojic@gmail.com");
-            return Ok();
+            var logInOperation = _appOperationProvider.GetOperation<LogInOperation>();
+            var result = await logInOperation.Execute(request);
+            return Ok(result);
         }
 
         [HttpPost]
         [Route("logout")]
-        // [Authorize]
-        public IActionResult LogOut() 
+        public IActionResult LogOut()
         {
-            Console.WriteLine($"Logout: { HttpContext.Session.GetString("username") }, Sesid: { HttpContext.Session.Id }");
-            
-            // Abandon current session
-            HttpContext.Session.Clear();
-            
-            // Invalidate the client cookie
-            Response.Cookies.Delete("AppCookie");
-            return Ok();
+            var logOutRequest = new LogOutRequest();
+            var logOutOperation = _appOperationProvider.GetOperation<LogOutOperation>();
+            var result = logOutOperation.Execute(logOutRequest);
+            return Ok(result);
         }
     }
 }

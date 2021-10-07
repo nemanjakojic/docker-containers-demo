@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using code.Core;
+using code.Core.Application;
+using code.Core.Operations;
 using code.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -37,25 +41,26 @@ namespace code
                 options.InstanceName = "Session_";
             });
 
-            // services.AddSwaggerGen(c =>
-            // {
-            //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "code", Version = "v1" });
-            // });
-
             services.AddSession(options =>
             {
                 // 20 minutes later from last access your session will be removed.
                 options.IdleTimeout = TimeSpan.FromSeconds(60);
-                options.Cookie.Name = "ArraysCookie";
+                options.Cookie.Name = "AppCookie";
                 options.Cookie.IsEssential = true;
             });
 
-            // services.AddDistributedMemoryCache();
-            // services.AddCaching();
-            
-            var dbConnectionString = Configuration.GetConnectionString("MvcMovieContext");
+            // Configure injected dependencies
+            var dbConnectionString = Configuration.GetConnectionString("AppDbContext");
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(dbConnectionString));
+            services.AddTransient<IHashGenerator, BCryptHashGenerator>();
+            services.AddTransient<IDateTimeProvider, DefaultDateTimeProvider>();
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IOperationProvider, OperationProvider>();
+            services.AddTransient<LogInOperation>();
+            services.AddTransient<LogOutOperation>();
+            services.AddTransient<SignUpOperation>();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -63,8 +68,6 @@ namespace code
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                // app.UseSwagger();
-                // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "code v1"));
             }
 
             app.UseHttpsRedirection();
