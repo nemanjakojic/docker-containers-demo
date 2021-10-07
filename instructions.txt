@@ -45,3 +45,23 @@ https://docs.microsoft.com/en-us/dotnet/architecture/microservices/multi-contain
 Tear down and remove all the deployed docker containers
 sudo docker-compose down
 
+Install EF Core Package
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+
+Get Container's IP address
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}'
+
+TODO: Check AspNetCore Best Practices for Passwords! 
+TODO: Finish up the web application.
+TODO: Containerize the web application.
+
+BCrypt password hashing
+https://jasonwatmore.com/post/2020/07/16/aspnet-core-3-hash-and-verify-passwords-with-bcrypt
+Bcrypt uses the Blowfish cypher.
+Blowfish is slow enough to prevent certain attacks.
+The salted hash meets security recommendations on length and unpredictability.
+Bcrypt is widely used and has been around for many years (it was created in 1999). 
+Reported issues are scarce, and no one has broken the Blowfish algorithm.
+
+dotnet add package BCrypt.Net-Next
+
