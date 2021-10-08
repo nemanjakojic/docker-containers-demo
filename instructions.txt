@@ -54,6 +54,7 @@ docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}'
 TODO: Check AspNetCore Best Practices for Passwords! 
 TODO: Finish up the web application.
 TODO: Containerize the web application.
+TODO: Reseach different authentication methods (cookie, asp.net core, identity, membership)
 
 BCrypt password hashing
 https://jasonwatmore.com/post/2020/07/16/aspnet-core-3-hash-and-verify-passwords-with-bcrypt

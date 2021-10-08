@@ -32,13 +32,13 @@ namespace code.Core.Application
             _httpContextAccessor = httpContextAccessor;
         }
 
-        protected override Task<ValidationResult> ValidateRequest(LogInRequest request) 
+        protected override ValidationResult ValidateRequest(LogInRequest request) 
         {
             var loggedInUser = _httpContextAccessor.HttpContext.Session.GetString(AppConstants.LoggedInUserSessionKey);
 
             if (string.Equals(request.Username, loggedInUser, StringComparison.OrdinalIgnoreCase)) 
             {
-                return Task.FromResult(ValidationResult.Failure().WithMessage("Already logged in."));
+                return ValidationResult.Failure().WithMessage("Already logged in.");
             }
 
             // Sanitize input data
@@ -47,15 +47,15 @@ namespace code.Core.Application
 
             if (string.IsNullOrWhiteSpace(request.Username)) 
             {
-                return Task.FromResult(ValidationResult.Success().WithMessage("Invalid username."));
+                return ValidationResult.Failure().WithMessage("Unable to log in - invalid username.");
             }
 
             if (string.IsNullOrWhiteSpace(request.Password)) 
             {
-                return Task.FromResult(ValidationResult.Success().WithMessage("Invalid password."));
+                return ValidationResult.Failure().WithMessage("Unable to log in - invalid password.");
             }
             
-            return Task.FromResult(ValidationResult.Success());
+            return ValidationResult.Success();
         }
 
         protected override async Task<LogInResult> ExecuteRequest(LogInRequest request, ValidationResult validationResult)
@@ -63,7 +63,7 @@ namespace code.Core.Application
             var account = await _context.Account.Where(a => a.Username == request.Username).FirstOrDefaultAsync();
             if (account == null) 
             {
-                return new LogInResult { Success = false, Message = "Account not found." };
+                return new LogInResult { Success = false, Message = "Unabled to log in - account not found." };
             }
             
             var passwordMatch = await _hashGenerator.VerifyHash(
@@ -73,9 +73,12 @@ namespace code.Core.Application
             if (passwordMatch) 
             {
                 _httpContextAccessor.HttpContext.Session.SetString(AppConstants.LoggedInUserSessionKey, request.Username);
+                return new LogInResult { Success = true, Message = "Logged in successfully." };
             }
-
-            return new LogInResult { Success = passwordMatch };
+            else 
+            {
+                return new LogInResult { Success = false, Message = "Unable to log in - wrong password." };
+            }
         }
     }
 }

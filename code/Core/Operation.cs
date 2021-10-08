@@ -23,7 +23,7 @@ namespace code.Core.Operations
                     return new TResult { Success = false, Message = "Invalid request: null." };
                 }
 
-                var validationResult = await ValidateRequest(request);
+                var validationResult = ValidateRequest(request);
 
                 // Deliberately skipping checking null reference - let the program blow in case of a programming error.
                 // The error will be caught by the surround try-catch block and logger properly.
@@ -36,16 +36,16 @@ namespace code.Core.Operations
             }
             catch (Exception e) 
             {
-                var errorMessage = $"Failed to execute { nameof(TResult) } due to an internal server error.";
+                var errorMessage = $"Failed to execute request due to an internal server error.";
                 _logger.LogError(e, errorMessage);
                 return new TResult { Success = false, Message = errorMessage };
             }
         }
 
         // Validates input request
-        protected virtual Task<ValidationResult> ValidateRequest(TRequest request) 
+        protected virtual ValidationResult ValidateRequest(TRequest request) 
         {
-            return Task.FromResult(new ValidationResult{ Passed = true });
+            return new ValidationResult{ Passed = true };
         }
 
         // Executes validated input request

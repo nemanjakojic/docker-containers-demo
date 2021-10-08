@@ -30,21 +30,23 @@ namespace code.Core.Application {
             _httpContextAccessor = httpContextAccessor;
         }
 
-        protected override Task<ValidationResult> ValidateRequest(SignUpRequest request) 
+        protected override ValidationResult ValidateRequest(SignUpRequest request) 
         {
             // Sanitize input data
             request.Username = request.Username?.Trim();
             request.Password = request.Password?.Trim();
 
-            if (string.IsNullOrWhiteSpace(request.Username)) {
-                return Task.FromResult(ValidationResult.Success().WithMessage("Invalid username."));
+            if (string.IsNullOrWhiteSpace(request.Username)) 
+            {
+                return ValidationResult.Failure().WithMessage("Unable to sign up - invalid username.");
             }
 
-            if (string.IsNullOrWhiteSpace(request.Password)) {
-                return Task.FromResult(ValidationResult.Success().WithMessage("Invalid password."));
+            if (string.IsNullOrWhiteSpace(request.Password)) 
+            {
+                return ValidationResult.Failure().WithMessage("Unable to sign up - invalid password.");
             }
             
-            return Task.FromResult(ValidationResult.Success());
+            return ValidationResult.Success();
         }
 
         protected override async Task<SignUpResult> ExecuteRequest(SignUpRequest request, ValidationResult validationResult)
@@ -53,8 +55,9 @@ namespace code.Core.Application {
             
             // Check if the account already exists
             var accountExists = _context.Account.Any(a => a.Username == request.Username);
-            if (accountExists) {
-                return new SignUpResult { Success = false, Message = "Account already exists." }; // TODO: error
+            if (accountExists) 
+            {
+                return new SignUpResult { Success = false, Message = "Unable to sign up - account already exists." };
             }
 
             var now = _dateTimeProvider.GetUtcNow();
@@ -73,7 +76,7 @@ namespace code.Core.Application {
             await _context.SaveChangesAsync();
             await transaction.CommitAsync();
 
-            return new SignUpResult { Success = true };
+            return new SignUpResult { Success = true, Message = "Account registered successfully." };
         }
     }
 }

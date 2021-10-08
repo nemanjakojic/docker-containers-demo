@@ -5,6 +5,7 @@ using code.Core.Operations;
 using code.Data;
 using code.Model;
 using code.Operations.LogOut;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -32,16 +33,25 @@ namespace code.Core.Application
             _httpContextAccessor = httpContextAccessor;
         }
 
-        protected override Task<ValidationResult> ValidateRequest(LogOutRequest request) 
+        protected override ValidationResult ValidateRequest(LogOutRequest request) 
         {
-            return Task.FromResult(ValidationResult.Success());
+            var loggedInUser = _httpContextAccessor.HttpContext.Session.GetString(AppConstants.LoggedInUserSessionKey);
+            if (string.IsNullOrEmpty(loggedInUser)) 
+            {
+                return ValidationResult.Failure().WithMessage("Invalid request - already logged out.");
+            }
+            return ValidationResult.Success();
         }
 
-        protected override Task<LogOutResponse> ExecuteRequest(LogOutRequest request, ValidationResult validationResult)
+        protected override async Task<LogOutResponse> ExecuteRequest(LogOutRequest request, ValidationResult validationResult)
         {
+            // 
+            // await _httpContextAccessor.HttpContext.SignOutAsync();
+            await Task.CompletedTask;
+            // TODO: record last logout time
             _httpContextAccessor.HttpContext.Session.Clear();
             _httpContextAccessor.HttpContext.Response.Cookies.Delete(AppConstants.AppCookieName);
-            return Task.FromResult(new LogOutResponse { Success = true });
+            return new LogOutResponse { Success = true,  Message = "Logged out successfully." };
         }
     }
 }
