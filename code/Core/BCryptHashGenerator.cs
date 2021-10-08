@@ -6,8 +6,9 @@ using code.Data;
 using code.Model;
 using BC = BCrypt.Net.BCrypt;
 
-namespace code.Core
+namespace code.Core 
 {
+    // Bcrypt-based hash generator
     public class BCryptHashGenerator : IHashGenerator
     {
         private const HashType DefaultHashType = HashType.SHA384;

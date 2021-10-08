@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace code.Core.Application {
-
+namespace code.Core.Application 
+{
     public class LogOutOperation : Operation<LogOutRequest, LogOutResponse>
     {
         private readonly AppDbContext _context;
@@ -32,14 +32,15 @@ namespace code.Core.Application {
             _httpContextAccessor = httpContextAccessor;
         }
 
-        protected override Task<ValidationResult> ValidateRequest(LogOutRequest request) {
+        protected override Task<ValidationResult> ValidateRequest(LogOutRequest request) 
+        {
             return Task.FromResult(ValidationResult.Success());
         }
 
         protected override Task<LogOutResponse> ExecuteRequest(LogOutRequest request, ValidationResult validationResult)
         {
             _httpContextAccessor.HttpContext.Session.Clear();
-            _httpContextAccessor.HttpContext.Response.Cookies.Delete("AppCookie");
+            _httpContextAccessor.HttpContext.Response.Cookies.Delete(AppConstants.AppCookieName);
             return Task.FromResult(new LogOutResponse { Success = true });
         }
     }

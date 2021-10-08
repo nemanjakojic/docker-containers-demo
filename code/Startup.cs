@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using code.Core;
 using code.Core.Application;
@@ -43,9 +44,8 @@ namespace code
 
             services.AddSession(options =>
             {
-                // 20 minutes later from last access your session will be removed.
-                options.IdleTimeout = TimeSpan.FromSeconds(60);
-                options.Cookie.Name = "AppCookie";
+                options.IdleTimeout = AppConstants.DefaultSessionIdleTimeout;
+                options.Cookie.Name = AppConstants.AppCookieName;
                 options.Cookie.IsEssential = true;
             });
 

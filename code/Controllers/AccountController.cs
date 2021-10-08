@@ -53,11 +53,11 @@ namespace code.Controllers
 
         [HttpPost]
         [Route("logout")]
-        public IActionResult LogOut()
+        public async Task<IActionResult> LogOut()
         {
             var logOutRequest = new LogOutRequest();
             var logOutOperation = _appOperationProvider.GetOperation<LogOutOperation>();
-            var result = logOutOperation.Execute(logOutRequest);
+            var result = await logOutOperation.Execute(logOutRequest);
             return Ok(result);
         }
     }

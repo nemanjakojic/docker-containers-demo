@@ -3,7 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace code.Core.Operations
 {
-    public interface IOperationProvider {
+    public interface IOperationProvider 
+    {
         TOperation GetOperation<TOperation>();
     }
 
@@ -11,7 +12,8 @@ namespace code.Core.Operations
     {
         private readonly IServiceProvider _serviceProvider;
 
-        public OperationProvider(IServiceProvider serviceProvider) {
+        public OperationProvider(IServiceProvider serviceProvider) 
+        {
             _serviceProvider = serviceProvider;
         }
 

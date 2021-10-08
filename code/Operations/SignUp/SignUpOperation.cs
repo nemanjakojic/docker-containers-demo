@@ -30,7 +30,8 @@ namespace code.Core.Application {
             _httpContextAccessor = httpContextAccessor;
         }
 
-        protected override Task<ValidationResult> ValidateRequest(SignUpRequest request) {
+        protected override Task<ValidationResult> ValidateRequest(SignUpRequest request) 
+        {
             // Sanitize input data
             request.Username = request.Username?.Trim();
             request.Password = request.Password?.Trim();
@@ -51,9 +52,9 @@ namespace code.Core.Application {
             using var transaction = await _context.Database.BeginTransactionAsync();
             
             // Check if the account already exists
-            var accountExists = _context.Account.Any(a => a.Username == request.Username.Trim());
+            var accountExists = _context.Account.Any(a => a.Username == request.Username);
             if (accountExists) {
-                return new SignUpResult { Success = false }; // TODO: error
+                return new SignUpResult { Success = false, Message = "Account already exists." }; // TODO: error
             }
 
             var now = _dateTimeProvider.GetUtcNow();
