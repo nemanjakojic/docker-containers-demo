@@ -43,15 +43,13 @@ namespace code.Core.Application
             return ValidationResult.Success();
         }
 
-        protected override async Task<LogOutResponse> ExecuteRequest(LogOutRequest request, ValidationResult validationResult)
+        protected override Task<LogOutResponse> ExecuteRequest(LogOutRequest request, ValidationResult validationResult)
         {
-            // 
-            // await _httpContextAccessor.HttpContext.SignOutAsync();
-            await Task.CompletedTask;
             // TODO: record last logout time
             _httpContextAccessor.HttpContext.Session.Clear();
             _httpContextAccessor.HttpContext.Response.Cookies.Delete(AppConstants.AppCookieName);
-            return new LogOutResponse { Success = true,  Message = "Logged out successfully." };
+            var logoutResult = new LogOutResponse { Success = true,  Message = "Logged out successfully." };
+            return Task.FromResult(logoutResult);
         }
     }
 }

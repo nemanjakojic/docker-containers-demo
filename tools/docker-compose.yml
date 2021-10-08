@@ -1,11 +1,13 @@
 version: "3.9"
 services:
-#    web:
-#        build: .
-#        ports:
-#            - "8000:80"
-#        depends_on:
-#            - db
+  web:
+    build: ../code
+    image: webapi/account:1.0
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+    container_name: account_api
   db:
     image: "mcr.microsoft.com/mssql/server"
     user: root

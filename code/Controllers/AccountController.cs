@@ -19,16 +19,13 @@ namespace code.Controllers
     [Route("[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly ILogger<AccountController> _logger;
         private readonly AppDbContext _context;
         private readonly IOperationProvider _appOperationProvider;
 
         public AccountController(
-            ILogger<AccountController> logger, 
             AppDbContext context,
             IOperationProvider operationProvider)
         {
-            _logger = logger;
             _context = context;
             _appOperationProvider = operationProvider;
         }
@@ -39,7 +36,7 @@ namespace code.Controllers
         {
             var signUpOperation = _appOperationProvider.GetOperation<SignUpOperation>();
             var result = await signUpOperation.Execute(request);
-            return Ok(result);
+            return ToActionResult(result);
         }
 
         [HttpPost]
@@ -48,7 +45,7 @@ namespace code.Controllers
         {
             var logInOperation = _appOperationProvider.GetOperation<LogInOperation>();
             var result = await logInOperation.Execute(request);
-            return Ok(result);
+            return ToActionResult(result);
         }
 
         [HttpPost]
@@ -58,7 +55,11 @@ namespace code.Controllers
             var logOutRequest = new LogOutRequest();
             var logOutOperation = _appOperationProvider.GetOperation<LogOutOperation>();
             var result = await logOutOperation.Execute(logOutRequest);
-            return Ok(result);
+            return ToActionResult(result);
+        }
+
+        private IActionResult ToActionResult(ServiceResponse response) {
+            return response?.Success == true ? Ok(response) : BadRequest(response);
         }
     }
 }

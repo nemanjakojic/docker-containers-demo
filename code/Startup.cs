@@ -29,7 +29,7 @@ namespace code
             // Add Distributed Redis Cache for Session
             services.AddDistributedRedisCache(options =>
             {
-                options.Configuration = "localhost";
+                options.Configuration = Configuration.GetSection("Redis").GetConnectionString("RedisCache");
                 options.InstanceName = "Session_";
             });
 
@@ -64,7 +64,7 @@ namespace code
             app.UseHttpsRedirection();
             app.UseSession();
             app.UseRouting();
-
+            
             // app.UseAuthentication();
             // app.UseAuthorization();
 

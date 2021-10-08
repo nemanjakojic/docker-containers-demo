@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace code.Core.Operations
 {
@@ -21,6 +22,10 @@ namespace code.Core.Operations
                 if (request == null) 
                 {
                     return new TResult { Success = false, Message = "Invalid request: null." };
+                }
+
+                if (_logger.IsEnabled(LogLevel.Debug)) {
+                    _logger.LogDebug($"Processing request: { JsonConvert.SerializeObject(request) }");
                 }
 
                 var validationResult = ValidateRequest(request);
