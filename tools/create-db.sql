@@ -41,8 +41,8 @@ DECLARE @CurrentTime DATETIME = GETUTCDATE()
 
 INSERT INTO app.Account(Username, PasswordHash, Created, CreatedBy, Modified, ModifiedBy)
 VALUES
-('nemanja.kojic@gmail.com', HASHBYTES('SHA2_512',CAST(N'TestPwd.1234' AS VARBINARY(MAX))+0xF1202F8A), @CurrentTime, 'nemanja', @CurrentTime, 'nemanja'),
-('nkojic@gmail.com', HASHBYTES('SHA2_512',CAST(N'TestPwd.1234' AS VARBINARY(MAX))+0xF1202F8A), @CurrentTime, 'nemanja', @CurrentTime, 'nemanja')
+
+('nemanja.kojic@gmail.com', 0x243261243130247a4434306a75737a34436c49456a5968494d6a4f73656e464c494a373262507946516e6643745775304c72447632504b654974794b, @CurrentTime, 'nemanja', @CurrentTime, 'nemanja')
 
 GO
 

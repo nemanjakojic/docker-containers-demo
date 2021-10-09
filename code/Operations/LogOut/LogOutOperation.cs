@@ -33,16 +33,6 @@ namespace code.Core.Application
             _httpContextAccessor = httpContextAccessor;
         }
 
-        protected override ValidationResult ValidateRequest(LogOutRequest request) 
-        {
-            var loggedInUser = _httpContextAccessor.HttpContext.Session.GetString(AppConstants.LoggedInUserSessionKey);
-            if (string.IsNullOrEmpty(loggedInUser)) 
-            {
-                return ValidationResult.Failure().WithMessage("Invalid request - already logged out.");
-            }
-            return ValidationResult.Success();
-        }
-
         protected override Task<LogOutResponse> ExecuteRequest(LogOutRequest request, ValidationResult validationResult)
         {
             // TODO: record last logout time

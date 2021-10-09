@@ -34,13 +34,6 @@ namespace code.Core.Application
 
         protected override ValidationResult ValidateRequest(LogInRequest request) 
         {
-            var loggedInUser = _httpContextAccessor.HttpContext.Session.GetString(AppConstants.LoggedInUserSessionKey);
-
-            if (string.Equals(request.Username, loggedInUser, StringComparison.OrdinalIgnoreCase)) 
-            {
-                return ValidationResult.Failure().WithMessage("Already logged in.");
-            }
-
             // Sanitize input data
             request.Username = request.Username?.Trim();
             request.Password = request.Password?.Trim();
@@ -60,7 +53,15 @@ namespace code.Core.Application
 
         protected override async Task<LogInResult> ExecuteRequest(LogInRequest request, ValidationResult validationResult)
         {
-            var account = await _context.Account.Where(a => a.Username == request.Username).FirstOrDefaultAsync();
+            var loggedInUser = _httpContextAccessor.HttpContext.Session.GetString(AppConstants.LoggedInUserSessionKey);
+
+            if (string.Equals(request.Username, loggedInUser, StringComparison.OrdinalIgnoreCase)) 
+            {
+                return new LogInResult { Success = true, Message = "Already logged in." };
+            }
+
+            var account = await _context.Account.FirstOrDefaultAsync(a => a.Username == request.Username);
+
             if (account == null) 
             {
                 return new LogInResult { Success = false, Message = "Unabled to log in - account not found." };

@@ -25,10 +25,12 @@ namespace code.Core
         
         public Task<string> GenerateHash(string content)
         {
+            var salt = BC.GenerateSalt(workFactor: 10);
+            
             return Task.Run(() => 
                 BC.HashPassword(
                     inputKey: content,
-                    salt: BC.GenerateSalt(workFactor: 10),
+                    salt: salt,
                     enhancedEntropy: false, 
                     hashType: BCrypt.Net.HashType.SHA384)
             );
