@@ -76,4 +76,58 @@ TODO: Reseach different authentication methods (cookie, asp.net core, identity, 
 TODO: Setup HTTPS
 
 
+# Kestrel HTTPs URLs
 
+launchConfiguraion: 
+"ASPNETCORE_URLS": "http://localhost:8000;https://localhost:8001"
+
+"profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "code": {
+      "commandName": "Project",
+      "dotnetRunMessages": "true",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+        
+      }
+    }
+  }
+  
+  "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+
+"Kestrel": {
+    "Endpoints": {
+      "Http": {
+        "Url": "http://localhost:6000"
+      },
+      "Https": {
+        "Url": "https://localhost:6001",
+        "Certificate": {
+          "Path": "/home/ubuntu/.aspnet/https/aspnetapp.pfx",
+          "Password": "Test.123!"
+        }
+      }
+    },
+    "Certificates": {
+      "Default": {
+        "Path": "/home/ubuntu/.aspnet/https/aspnetapp.pfx",
+        "Password": "Test.123!"
+      }
+    }
+  }
