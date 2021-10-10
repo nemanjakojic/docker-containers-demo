@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "2325d0c3-c4da-49d2-b3aa-a23d3acd9858",
-		"name": "ArraysCollection",
+		"name": "AccountApiTests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -49,8 +49,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{account_api_url}}/account/signup",
-					"protocol": "http",
+					"raw": "{{account_api_url}}/account/signup",
 					"host": [
 						"{{account_api_url}}"
 					],
@@ -100,7 +99,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"nemanja1@gmail.com\",\n    \"password\": \"{{valid_password}}\"\n}",
+					"raw": "{\n    \"username\": \"nemanja.kojic@gmail.com\",\n    \"password\": \"{{valid_password}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -108,8 +107,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{account_api_url}}/account/signup",
-					"protocol": "http",
+					"raw": "{{account_api_url}}/account/signup",
 					"host": [
 						"{{account_api_url}}"
 					],
@@ -166,8 +164,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{account_api_url}}/account/signup",
-					"protocol": "http",
+					"raw": "{{account_api_url}}/account/signup",
 					"host": [
 						"{{account_api_url}}"
 					],
@@ -224,8 +221,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{account_api_url}}/account/signup",
-					"protocol": "http",
+					"raw": "{{account_api_url}}/account/signup",
 					"host": [
 						"{{account_api_url}}"
 					],
@@ -282,8 +278,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{account_api_url}}/account/signup",
-					"protocol": "http",
+					"raw": "{{account_api_url}}/account/signup",
 					"host": [
 						"{{account_api_url}}"
 					],
@@ -341,8 +336,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{account_api_url}}/account/signup",
-					"protocol": "http",
+					"raw": "{{account_api_url}}/account/signup",
 					"host": [
 						"{{account_api_url}}"
 					],
@@ -402,8 +396,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{account_api_url}}/account/signup",
-					"protocol": "http",
+					"raw": "{{account_api_url}}/account/signup",
 					"host": [
 						"{{account_api_url}}"
 					],
@@ -459,8 +452,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{account_api_url}}/account/login",
-					"protocol": "http",
+					"raw": "{{account_api_url}}/account/login",
 					"host": [
 						"{{account_api_url}}"
 					],
@@ -525,8 +517,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{account_api_url}}/account/login",
-					"protocol": "http",
+					"raw": "{{account_api_url}}/account/login",
 					"host": [
 						"{{account_api_url}}"
 					],
@@ -585,8 +576,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{account_api_url}}/account/login",
-					"protocol": "http",
+					"raw": "{{account_api_url}}/account/login",
 					"host": [
 						"{{account_api_url}}"
 					],
@@ -659,8 +649,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{account_api_url}}/account/login",
-					"protocol": "http",
+					"raw": "{{account_api_url}}/account/login",
 					"host": [
 						"{{account_api_url}}"
 					],
@@ -733,8 +722,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{account_api_url}}/account/login",
-					"protocol": "http",
+					"raw": "{{account_api_url}}/account/login",
 					"host": [
 						"{{account_api_url}}"
 					],
@@ -788,8 +776,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://{{account_api_url}}/account/logout",
-					"protocol": "http",
+					"raw": "{{account_api_url}}/account/logout",
 					"host": [
 						"{{account_api_url}}"
 					],
@@ -843,8 +830,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://{{account_api_url}}/account/logout",
-					"protocol": "http",
+					"raw": "{{account_api_url}}/account/logout",
 					"host": [
 						"{{account_api_url}}"
 					],
