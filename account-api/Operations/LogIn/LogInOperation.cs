@@ -17,6 +17,7 @@ namespace code.Core.Application
         private readonly IHashGenerator _hashGenerator;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        
 
         
         public LogInOperation(
@@ -47,7 +48,7 @@ namespace code.Core.Application
             {
                 return ValidationResult.Failure().WithMessage("Unable to log in - invalid password.");
             }
-            
+
             return ValidationResult.Success();
         }
 

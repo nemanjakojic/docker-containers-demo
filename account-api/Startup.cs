@@ -2,6 +2,7 @@ using code.Core;
 using code.Core.Application;
 using code.Core.Operations;
 using code.Data;
+using code.Operations.SignUp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -51,6 +52,16 @@ namespace code
             services.AddTransient<LogInOperation>();
             services.AddTransient<LogOutOperation>();
             services.AddTransient<SignUpOperation>();
+
+            // Configure password policy
+            services.AddTransient<IPasswordValidator>(provider => 
+                DefaultPasswordValidator.Configure(validator => {
+                    validator.MinimumDigitsRequired = 1;
+                    validator.MinimumLowercaseLettersRequired = 1;
+                    validator.MinimumUppercaseLettersRequired = 1;
+                    validator.MinimumNonAlphanumericsRequired = 1;
+                    validator.MinimumLength = 6;
+                }));
         }
 
 

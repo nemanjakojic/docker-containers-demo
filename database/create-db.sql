@@ -1,48 +1,135 @@
 -- ======================================== --
--- Script parameters
+-- Create database accounts_db
 -- ======================================== --
+USE master;
 
--- Create the SQL Server Login 'AppLogin'
-CREATE LOGIN AppLogin WITH PASSWORD = 'TestPwd.098';  
+IF DB_ID('accounts_db') IS NULL
+BEGIN
+  CREATE DATABASE accounts_db;
+END
+
+GO 
+
+-- ======================================== --
+-- Create server login 'AppLogin'
+-- ======================================== --
+USE accounts_db
+
+IF NOT EXISTS (
+	SELECT 1 
+	FROM master.sys.server_principals 
+	WHERE [name] = N'AppLogin' and [type] IN ('C','E', 'G', 'K', 'S', 'U')
+)
+BEGIN
+	-- Create the SQL Server Login 'AppLogin'
+	CREATE LOGIN AppLogin WITH PASSWORD = 'TestPwd.098';
+END
+
 GO  
 
--- Creates a database user for the login created above.  
-CREATE USER AppUser FOR LOGIN AppLogin;  
-GO
+-- ======================================================= --
+-- Create database user 'AppUser' for the login 'AppLogin'
+-- ======================================================= --
+USE accounts_db
 
--- Creates a database role owned by the user created above
-CREATE ROLE AppRole AUTHORIZATION AppUser
-GO
-
--- Adds the database user to the new database role
-ALTER ROLE AppRole ADD MEMBER AppUser
-GO
-
--- Creates a new schema owned by the created database role
-CREATE SCHEMA app AUTHORIZATION AppRole
-GO
-
--- DB Schema Initialization
-CREATE TABLE app.Account(
-	Id BIGINT PRIMARY KEY IDENTITY(1, 1),
-	Username NVARCHAR(100) NOT NULL UNIQUE,
-	PasswordHash VARBINARY(MAX) NOT NULL,
-	Created DATETIME NOT NULL,
-	CreatedBy NVARCHAR(100) NOT NULL,
-	Modified DATETIME NOT NULL,
-	ModifiedBy NVARCHAR(100) NOT NULL
+IF NOT EXISTS (
+	SELECT 1 
+	FROM sys.database_principals
+	WHERE [name] = N'AppUser' and [type] IN ('C','E', 'G', 'K', 'S', 'U')
 )
+BEGIN
+	CREATE USER AppUser FOR LOGIN AppLogin;
+END
 
-CREATE NONCLUSTERED INDEX UsernameIdx ON app.Account(Username);
 GO
+
+-- ======================================== --
+-- Create database role 'AppRole'
+-- ======================================== --
+USE accounts_db
+
+IF NOT EXISTS (
+	SELECT 1 
+	FROM sys.database_principals 
+	WHERE [name] = N'AppRole' and Type = 'R'
+)
+BEGIN
+	CREATE ROLE AppRole
+END
+
+GO
+
+-- ===================================================== --
+-- Add the user 'AppUser' to the database role 'AppRole'
+-- ===================================================== --
+USE accounts_db
+
+ALTER ROLE AppRole ADD MEMBER AppUser
+
+GO
+
+-- ========================================================= --
+-- Create schema 'app' owned by the role principal 'AppRole'
+-- ========================================================= --
+USE accounts_db
+
+IF NOT EXISTS(
+	SELECT 1 
+	FROM sys.schemas
+	WHERE name = 'app'
+)
+BEGIN
+	EXEC('CREATE SCHEMA app AUTHORIZATION AppRole')
+END
+
+GO
+
+-- ========================================================= --
+-- Create table 'app.Account' with accompanying indexes
+-- ========================================================= --
+USE accounts_db 
+
+IF NOT EXISTS (
+	SELECT * 
+	FROM sys.tables t
+	JOIN sys.schemas s ON t.schema_id = s.schema_id
+	WHERE s.name = N'app' AND t.name = N'Account' and t.type = 'U'
+)
+BEGIN
+	CREATE TABLE app.Account(
+		Id BIGINT PRIMARY KEY IDENTITY(1, 1),
+		Username NVARCHAR(100) NOT NULL UNIQUE,
+		PasswordHash VARBINARY(MAX) NOT NULL,
+		Created DATETIME NOT NULL,
+		CreatedBy NVARCHAR(100) NOT NULL,
+		Modified DATETIME NOT NULL,
+		ModifiedBy NVARCHAR(100) NOT NULL
+	)
+	
+	CREATE NONCLUSTERED INDEX UsernameIdx ON app.Account(Username);
+END
+
+GO
+
+-- ========================================================= --
+-- Insert test data
+-- ========================================================= --
+USE accounts_db
 
 -- Test data initialization
 DECLARE @CurrentTime DATETIME = GETUTCDATE()
+DECLARE @TestUser NVARCHAR(100) = 'testuser@email.com'
 
-INSERT INTO app.Account(Username, PasswordHash, Created, CreatedBy, Modified, ModifiedBy)
-VALUES
-
-('nemanja.kojic@gmail.com', 0x243261243130247a4434306a75737a34436c49456a5968494d6a4f73656e464c494a373262507946516e6643745775304c72447632504b654974794b, @CurrentTime, 'nemanja', @CurrentTime, 'nemanja')
+IF NOT EXISTS (
+	SELECT 1 
+	FROM app.Account
+	WHERE Username = @TestUser
+)
+BEGIN
+	INSERT INTO app.Account(Username, PasswordHash, Created, CreatedBy, Modified, ModifiedBy)
+	VALUES
+	(@TestUser, 0x243261243130247436585a49467456722f6862766e624a3646567932754e63484a73567733324c692e6453797237362e36414352565343323453454b, @CurrentTime, 'app', @CurrentTime, 'app')
+END
 
 GO
 
