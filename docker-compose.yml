@@ -4,12 +4,14 @@ services:
     image: webapi/account:1.0
     container_name: account-api
     build: 
-      context: ./code
+      context: ./account-api
       dockerfile: Dockerfile
     ports:
-      - "8000:80"
+      - "8001:8001"
     depends_on:
       - db
+    volumes:
+      - ./cert/aspnetapp.pfx:/cert/aspnetapp.pfx:ro
 
   db:
     image: "mcr.microsoft.com/mssql/server"
@@ -23,9 +25,9 @@ services:
     ports:
       - "1433:1433"
     volumes:
-      - ./db-init/docker-entrypoint.sh:/entrypoint.sh
-      - ./db-init/docker-db-init.sh:/db-init.sh
-      - ./db-init/create-db.sql:/db-init.sql
+      - ./database/docker-entrypoint.sh:/entrypoint.sh
+      - ./database/docker-db-init.sh:/db-init.sh
+      - ./database/create-db.sql:/db-init.sql
 
   redis:
     image: "redis"
