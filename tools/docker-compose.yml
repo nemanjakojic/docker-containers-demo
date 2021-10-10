@@ -7,24 +7,26 @@ services:
       - "8000:80"
     depends_on:
       - db
-    container_name: account_api
+    container_name: account-api
+
   db:
     image: "mcr.microsoft.com/mssql/server"
     user: root
-    container_name: mssql-container
+    container_name: mssql-db
+    command: /bin/bash ./entrypoint.sh
     environment:
       SA_PASSWORD: "TestPwd.098"
       ACCEPT_EULA: "Y"
       MSSQL_PID: "Express"
-      # restart: always
     ports:
       - "1433:1433"
-    #volumes:
-    #  - /home/ubuntu/array-hw-netcore/data:/var/opt/mssql/data
-    #  - /home/ubuntu/array-hw-netcore/log:/var/opt/mssql/log
-
+    volumes:
+      - ./db-init/docker-entrypoint.sh:/entrypoint.sh
+      - ./db-init/docker-db-init.sh:/db-init.sh
+      - ./db-init/create-db.sql:/db-init.sql
+    
   redis:
     image: "redis"
     ports:
       - "6379:6379"
-    container_name: dist-session-container
+    container_name: session-store

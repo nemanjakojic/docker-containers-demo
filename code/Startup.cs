@@ -32,7 +32,8 @@ namespace code
                 options.Configuration = Configuration.GetSection("Redis").GetConnectionString("RedisCache");
                 options.InstanceName = "Session_";
             });
-
+            
+            // Configure cookie-based session management
             services.AddSession(options =>
             {
                 options.IdleTimeout = AppConstants.DefaultSessionIdleTimeout;
@@ -62,10 +63,10 @@ namespace code
             }
             else 
             {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
+                app.UseExceptionHandler("/Error");    
             }
 
+            app.UseHsts();
             app.UseHttpsRedirection();
             app.UseSession();
             app.UseRouting();
