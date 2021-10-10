@@ -105,7 +105,7 @@ Design Notes and Assumptions
  - The database stores hashed passwords. 
  - Passwords are hashed using the BCrypt algorithm with the SHA-384 hash function and the cost of 10 (2^10 rounds).
  - The account-api service does the password hashing. No plain passwords traveling between the api and the database. 
- - A custom password policy has been implemented to prvent weak passwords from entering the platform.
+ - A custom password policy has been implemented to prevent weak passwords from entering the platform.
  - A special database login/user has been set up that can only access accounts and nothing else.
  - The account-api service employs Redis for distributed session management. 
  - The account-api endpoints are accessible exclusively over HTTPS. 
