@@ -32,7 +32,7 @@ namespace code.Core
                     inputKey: content,
                     salt: salt,
                     enhancedEntropy: false, 
-                    hashType: BCrypt.Net.HashType.SHA384)
+                    hashType: DefaultHashType)
             );
         }
     }
