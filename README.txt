@@ -86,12 +86,13 @@ Instructions for Running the Solution
  PREREQUISITES: docker, docker-compose
  (The setup has been tested on Ubuntu 20.04.)
  
- Run 'sudo docker-compose up -d' command to build, deploy and run the containers.
+ * Run 'sudo docker-compose up -d' command to build, deploy and run the containers.
+   IMPORTANT: make sure this command is run from within the directory that contains the 'docker-compose.yml' file.
  
- NOTE: The script that initializes the database schema will wait until 
-       the SQL Server instance is ready (up and running). 
-       If, for any reason, this script fails to initialize the database automatically, 
-       please run 'sudo docker-compose up -d' again.
+   NOTE: The script that initializes the database schema will wait until 
+         the SQL Server instance is ready (up and running). 
+         If, for any reason, this script fails to initialize the database automatically, 
+         please run 'sudo docker-compose up -d' again.
        
 ---------------------------------------------------------------------
 Instructions for Testing the Solution
