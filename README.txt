@@ -1,8 +1,10 @@
 -- =========================================== --
    Solution: kojic-backend-test-1
+   Submitted: Oct 10, 2021
 -- =========================================== --
 
-This folder contains all necessary artifacts for deploying and running the solution on docker containers.
+This folder contains all necessary artifacts for deploying and running 
+the application services in multiple docker containers.
 
 ----------------------------------------------------------------------
 Solution Folder Structure
@@ -21,7 +23,8 @@ Solution Folder Structure
    Contains a sample SSL certificate for setting up HTTPS.
    
  * docker-compose.yml:
-
+   YAML file for defining and running the application Docker containers.
+   
 -----------------------------------------------------------------------
 Software architecture / Deployment Model  
 -----------------------------------------------------------------------
@@ -83,11 +86,15 @@ Account Management REST API Summary
 ---------------------------------------------------------------------    
 Instructions for Running the Solution
 ---------------------------------------------------------------------
- PREREQUISITES: docker, docker-compose
+ PREREQUISITES: docker, docker-compose installed
  (The setup has been tested on Ubuntu 20.04.)
  
- * Run 'sudo docker-compose up -d' command to build, deploy and run the containers.
+ * Run 'docker-compose up -d' command to build, deploy and run the containers.
    IMPORTANT: make sure this command is run from within the directory that contains the 'docker-compose.yml' file.
+ 
+ Additional useful commands: 
+ * Run 'docker-compose down' to tear down the application Docker containers;
+ * Run 'docker-compose build' to rebuild the account-api Docker container image;
  
    NOTE: The script that initializes the database schema will wait until 
          the SQL Server instance is ready (up and running). 
