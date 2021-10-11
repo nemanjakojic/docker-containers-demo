@@ -99,7 +99,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"nemanja.kojic@gmail.com\",\n    \"password\": \"{{valid_password}}\"\n}",
+					"raw": "{\n    \"username\": \"testuser@email.com\",\n    \"password\": \"{{valid_password}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -389,6 +389,291 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"username\": \" \",\n    \"password\": null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{account_api_url}}/account/signup",
+					"host": [
+						"{{account_api_url}}"
+					],
+					"path": [
+						"account",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SignUp - Failure (Weak Pass / No Uppercase)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response is in JSON format\", function () {",
+							"    pm.expect(pm.response).to.be.jsonBody();",
+							"    pm.expect(pm.response.json()).to.haveOwnProperty(\"success\");",
+							"    pm.expect(pm.response.json()).to.haveOwnProperty(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Success flag is false\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.success).to.eql(false);",
+							"});",
+							"",
+							"pm.test(\"Message is correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.be.eql(\"Unable to sign up - weak password.\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"{{$randomEmail}}\",\n    \"password\": \"nemanja.123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{account_api_url}}/account/signup",
+					"host": [
+						"{{account_api_url}}"
+					],
+					"path": [
+						"account",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SignUp - Failure (Weak Pass / No NonAlphaNumerics)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response is in JSON format\", function () {",
+							"    pm.expect(pm.response).to.be.jsonBody();",
+							"    pm.expect(pm.response.json()).to.haveOwnProperty(\"success\");",
+							"    pm.expect(pm.response.json()).to.haveOwnProperty(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Success flag is false\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.success).to.eql(false);",
+							"});",
+							"",
+							"pm.test(\"Message is correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.be.eql(\"Unable to sign up - weak password.\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"{{$randomEmail}}\",\n    \"password\": \"Nemanja123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{account_api_url}}/account/signup",
+					"host": [
+						"{{account_api_url}}"
+					],
+					"path": [
+						"account",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SignUp - Failure (Weak Pass / No Digits)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response is in JSON format\", function () {",
+							"    pm.expect(pm.response).to.be.jsonBody();",
+							"    pm.expect(pm.response.json()).to.haveOwnProperty(\"success\");",
+							"    pm.expect(pm.response.json()).to.haveOwnProperty(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Success flag is false\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.success).to.eql(false);",
+							"});",
+							"",
+							"pm.test(\"Message is correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.be.eql(\"Unable to sign up - weak password.\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"{{$randomEmail}}\",\n    \"password\": \"Nemanja.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{account_api_url}}/account/signup",
+					"host": [
+						"{{account_api_url}}"
+					],
+					"path": [
+						"account",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SignUp - Failure (Weak Pass / No Lowercase)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response is in JSON format\", function () {",
+							"    pm.expect(pm.response).to.be.jsonBody();",
+							"    pm.expect(pm.response.json()).to.haveOwnProperty(\"success\");",
+							"    pm.expect(pm.response.json()).to.haveOwnProperty(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Success flag is false\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.success).to.eql(false);",
+							"});",
+							"",
+							"pm.test(\"Message is correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.be.eql(\"Unable to sign up - weak password.\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"{{$randomEmail}}\",\n    \"password\": \"NEMANJA.123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{account_api_url}}/account/signup",
+					"host": [
+						"{{account_api_url}}"
+					],
+					"path": [
+						"account",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SignUp - Failure (Weak Pass / Too Short)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response is in JSON format\", function () {",
+							"    pm.expect(pm.response).to.be.jsonBody();",
+							"    pm.expect(pm.response.json()).to.haveOwnProperty(\"success\");",
+							"    pm.expect(pm.response.json()).to.haveOwnProperty(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Success flag is false\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.success).to.eql(false);",
+							"});",
+							"",
+							"pm.test(\"Message is correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.be.eql(\"Unable to sign up - weak password.\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"{{$randomEmail}}\",\n    \"password\": \"Nk.1\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
