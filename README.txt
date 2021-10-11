@@ -94,9 +94,14 @@ Instructions for Running the Solution
 Instructions for Testing the Solution
 ---------------------------------------------------------------------
  The solution comes with a Postman request collection and environment file. 
- Step 1: Run Postman,
- Step 2: Import both the request collection and the environment file into Postman,
- Step 3: Run the imported request collection from within Postman.
+ Step 1: Run Postman;
+ Step 2: Import a request collection from 'postman/AccountApiTests.postman_collection.json';
+ Step 3: Import a test environment from 'postman/Test.postman_environment.json';
+ Step 4: Set the Test enviroment as Active.
+ Step 5: The sample SSL certificate is self-signed. 
+         Disable SSL certificate verification to prevent errors.
+         Postman: File > Settings > General > SSL Certificate Verification - set to OFF.
+ Step 6: Run the imported request collection from within Postman.
          Make sure the Test environment is set as active. 
 
 ---------------------------------------------------------------------
