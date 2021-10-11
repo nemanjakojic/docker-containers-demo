@@ -83,7 +83,10 @@ Account Management REST API Summary
 ---------------------------------------------------------------------    
 Instructions for Running the Solution
 ---------------------------------------------------------------------
- Run 'sudo docker-compose up -d' to build, deploy and run the containers.
+ PREREQUISITES: docker, docker-compose
+ (The setup has been tested on Ubuntu 20.04.)
+ 
+ Run 'sudo docker-compose up -d' command to build, deploy and run the containers.
  
  NOTE: The script that initializes the database schema will wait until 
        the SQL Server instance is ready (up and running). 
