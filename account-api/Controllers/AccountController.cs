@@ -1,19 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using code.Model;
-using Microsoft.AspNetCore.Authorization;
-using code.Data;
-using code.Core;
-using code.Core.Operations;
-using code.Core.Application;
-using code.Operations.LogOut;
+using Array.Test.Data;
+using Array.Test.Core;
+using Array.Test.Operations.LogOut;
+using Array.Test.Operations.SignUp;
+using Array.Test.Operations.LogIn;
 
-namespace code.Controllers
+namespace Array.Test.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -1,16 +1,12 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using code.Core.Operations;
-using code.Data;
-using code.Model;
-using code.Operations.LogOut;
-using Microsoft.AspNetCore.Authentication;
+using Array.Test.Core;
+using Array.Test.Data;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace code.Core.Application 
+namespace Array.Test.Operations.LogOut 
 {
     public class LogOutOperation : Operation<LogOutRequest, LogOutResponse>
     {
@@ -35,9 +31,14 @@ namespace code.Core.Application
 
         protected override Task<LogOutResponse> ExecuteRequest(LogOutRequest request, ValidationResult validationResult)
         {
-            // TODO: record last logout time
+            // TODO: record last logout time (optionally)
+            
+            // Clears the active session (removes all the values from it)
             _httpContextAccessor.HttpContext.Session.Clear();
+            
+            // Deletes the session token from the client
             _httpContextAccessor.HttpContext.Response.Cookies.Delete(AppConstants.AppCookieName);
+            
             var logoutResult = new LogOutResponse { Success = true,  Message = "Logged out successfully." };
             return Task.FromResult(logoutResult);
         }

@@ -2,14 +2,13 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using code.Core.Operations;
-using code.Data;
-using code.Model;
+using Array.Test.Core;
+using Array.Test.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace code.Core.Application 
+namespace Array.Test.Operations.LogIn 
 {
     public class LogInOperation : Operation<LogInRequest, LogInResult>
     {
@@ -17,8 +16,6 @@ namespace code.Core.Application
         private readonly IHashGenerator _hashGenerator;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        
-
         
         public LogInOperation(
             ILogger<LogInOperation> logger,
@@ -54,20 +51,21 @@ namespace code.Core.Application
 
         protected override async Task<LogInResult> ExecuteRequest(LogInRequest request, ValidationResult validationResult)
         {
+            // Check if the user is already logged ins
             var loggedInUser = _httpContextAccessor.HttpContext.Session.GetString(AppConstants.LoggedInUserSessionKey);
-
             if (string.Equals(request.Username, loggedInUser, StringComparison.OrdinalIgnoreCase)) 
             {
                 return new LogInResult { Success = true, Message = "Already logged in." };
             }
 
+            // Ensure there is an account for a given username
             var account = await _context.Account.FirstOrDefaultAsync(a => a.Username == request.Username);
-
             if (account == null) 
             {
                 return new LogInResult { Success = false, Message = "Unabled to log in - account not found." };
             }
             
+            // Check password
             var passwordMatch = await _hashGenerator.VerifyHash(
                 hash: Encoding.ASCII.GetString(account.PasswordHash), 
                 content: request.Password);

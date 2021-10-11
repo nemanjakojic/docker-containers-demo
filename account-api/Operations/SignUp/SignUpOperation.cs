@@ -1,16 +1,13 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using code.Core.Operations;
-using code.Data;
-using code.Model;
-using code.Operations.SignUp;
+using Array.Test.Core;
+using Array.Test.Data;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace code.Core.Application {
-
+namespace Array.Test.Operations.SignUp 
+{
     public class SignUpOperation : Operation<SignUpRequest, SignUpResult>
     {
         private readonly AppDbContext _context;
@@ -50,6 +47,7 @@ namespace code.Core.Application {
                 return ValidationResult.Failure().WithMessage("Unable to sign up - invalid password.");
             }
             
+            // Validates a given password against a predefined password requirements policy.
             var passwordValidationResult = _passwordValidator.Validate(request.Password);
             if (passwordValidationResult.Passed == false) 
             {
@@ -61,9 +59,10 @@ namespace code.Core.Application {
 
         protected override async Task<SignUpResult> ExecuteRequest(SignUpRequest request, ValidationResult validationResult)
         {
+            // Ensure the database is updated in a transactional manner.
             using var transaction = await _context.Database.BeginTransactionAsync();
             
-            // Check if the account already exists
+            // Check if an account with for a given username already exists
             var accountExists = _context.Account.Any(a => a.Username == request.Username);
             if (accountExists) 
             {
@@ -73,14 +72,15 @@ namespace code.Core.Application {
             var now = _dateTimeProvider.GetUtcNow();
             var passwordHash = await _hashGenerator.GenerateHash(request.Password);
 
+            // Create and insert a new account
             await _context.Account.AddAsync(new Data.Entity.Account
             {
                 Username = request.Username.Trim(),
                 PasswordHash = Encoding.ASCII.GetBytes(passwordHash),
                 Created = now,
-                CreatedBy = "app",
+                CreatedBy = "account-api",
                 Modified = now,
-                ModifiedBy = "app"
+                ModifiedBy = "account-api"
             });
 
             await _context.SaveChangesAsync();

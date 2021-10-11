@@ -1,6 +1,6 @@
 using System;
 
-namespace code.Core 
+namespace Account.Api.Core 
 {
     public interface IDateTimeProvider 
     {

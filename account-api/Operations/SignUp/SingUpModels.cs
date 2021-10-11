@@ -1,6 +1,6 @@
-using code.Core.Operations;
+using Array.Test.Core;
 
-namespace code.Model 
+namespace Array.Test.Operations.SignUp 
 {
     public class SignUpRequest : ServiceRequest
     {

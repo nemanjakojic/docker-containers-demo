@@ -3,9 +3,11 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace code.Core.Operations
+namespace Account.Api.Core
 {
-    // An abstraction of unit-testabled application functionality. Base class for all application operations.
+    // Base class for all application operations. 
+    // Implements a general request-handling flow in a Template Method fashion and handles errors. 
+    // Declares abstract methods for the request flow steps that subclasses can override.
     public abstract class Operation<TRequest, TResult> : IOperation<TRequest, TResult>
         where TResult: ServiceResponse, new()
     {
@@ -57,7 +59,7 @@ namespace code.Core.Operations
         protected abstract Task<TResult> ExecuteRequest(TRequest request, ValidationResult validationResult);
     }
 
-    // Auxiliary user-defined type for representing request validation results.
+    // An abstraction of request validation results.
     public class ValidationResult 
     {
         public bool Passed { get; set; }

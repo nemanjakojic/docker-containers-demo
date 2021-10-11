@@ -1,7 +1,8 @@
 using System.Threading.Tasks;
 
-namespace code.Core
+namespace Account.Api.Core
 {
+    // An abstraction of a hash generator.
     public interface IHashGenerator 
     {
         // Generates a cryptographically-strong hash from a given text value.

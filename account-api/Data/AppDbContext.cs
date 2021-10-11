@@ -1,7 +1,7 @@
-using code.Data.Entity;
+using Array.Test.Data.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace code.Data 
+namespace Array.Test.Data 
 {
     public class AppDbContext : DbContext 
     {

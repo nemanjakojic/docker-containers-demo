@@ -1,6 +1,6 @@
-using code.Core.Operations;
+using Array.Test.Core;
 
-namespace code.Operations.LogOut
+namespace Array.Test.Operations.LogOut
 {
     public class LogOutRequest : ServiceRequest 
     {

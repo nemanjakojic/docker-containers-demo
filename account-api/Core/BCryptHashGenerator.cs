@@ -2,13 +2,11 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using BCrypt.Net;
-using code.Data;
-using code.Model;
 using BC = BCrypt.Net.BCrypt;
 
-namespace code.Core 
+namespace Array.Test.Core 
 {
-    // Bcrypt-based hash generator
+    // A Bcrypt-based hash generator.
     public class BCryptHashGenerator : IHashGenerator
     {
         private const HashType DefaultHashType = HashType.SHA384;

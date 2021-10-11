@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using code.Core.Operations;
+using Array.Test.Core;
 
-namespace code.Operations.SignUp
+namespace Array.Test.Operations.SignUp
 {
     public class DefaultPasswordValidator : IPasswordValidator
     {
