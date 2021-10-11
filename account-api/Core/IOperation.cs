@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Account.Api.Core 
+namespace Array.Test.Core 
 {
     // An abstraction of an application operation that encapsulates core application logic.
     public interface IOperation<TRequet, TResult> 

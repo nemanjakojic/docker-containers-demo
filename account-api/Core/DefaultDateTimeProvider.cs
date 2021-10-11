@@ -1,6 +1,6 @@
 using System;
 
-namespace code.Core 
+namespace Array.Test.Core 
 {
     public class DefaultDateTimeProvider : IDateTimeProvider 
     {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace Account.Api.Core
+namespace Array.Test.Core
 {
     // Base class for all application operations. 
     // Implements a general request-handling flow in a Template Method fashion and handles errors. 

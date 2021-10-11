@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Account.Api.Core
+namespace Array.Test.Core
 {
     // Creates and initializes an application operation of the type TOperation.
     public interface IOperationProvider 

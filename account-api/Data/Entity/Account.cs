@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace code.Data.Entity 
+namespace Array.Test.Data.Entity 
 {
     [Table("Account", Schema="app")]
     public class Account 

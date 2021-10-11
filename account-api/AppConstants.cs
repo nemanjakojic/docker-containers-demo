@@ -1,6 +1,6 @@
 using System;
 
-namespace code
+namespace Array.Test
 {
     public static class AppConstants 
     {

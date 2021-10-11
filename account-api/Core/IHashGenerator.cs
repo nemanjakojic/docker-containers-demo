@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Account.Api.Core
+namespace Array.Test.Core
 {
     // An abstraction of a hash generator.
     public interface IHashGenerator 

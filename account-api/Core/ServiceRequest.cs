@@ -1,4 +1,4 @@
-namespace Account.Api.Core
+namespace Array.Test.Core
 {
     // Base class for all application request types.
     public abstract class ServiceRequest
