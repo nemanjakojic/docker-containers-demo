@@ -1,4 +1,4 @@
-namespace Array.Test.Core
+namespace Docker.Test.Core
 {
     // Base class for all application response types.
     public abstract class ServiceResponse 

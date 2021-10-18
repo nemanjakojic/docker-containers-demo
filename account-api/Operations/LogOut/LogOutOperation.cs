@@ -1,12 +1,12 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Array.Test.Core;
-using Array.Test.Data;
+using Docker.Test.Core;
+using Docker.Test.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace Array.Test.Operations.LogOut 
+namespace Docker.Test.Operations.LogOut 
 {
     public class LogOutOperation : Operation<LogOutRequest, LogOutResponse>
     {

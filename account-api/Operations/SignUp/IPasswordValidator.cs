@@ -1,8 +1,8 @@
 
 
-using Array.Test.Core;
+using Docker.Test.Core;
 
-namespace Array.Test.Operations.SignUp 
+namespace Docker.Test.Operations.SignUp 
 {
     // Ensures a given password fullfils a predefined password requirements policy.
     public interface IPasswordValidator 

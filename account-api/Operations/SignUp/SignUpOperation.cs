@@ -1,12 +1,12 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Array.Test.Core;
-using Array.Test.Data;
+using Docker.Test.Core;
+using Docker.Test.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace Array.Test.Operations.SignUp 
+namespace Docker.Test.Operations.SignUp 
 {
     public class SignUpOperation : Operation<SignUpRequest, SignUpResult>
     {

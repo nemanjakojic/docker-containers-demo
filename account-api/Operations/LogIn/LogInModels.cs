@@ -1,6 +1,6 @@
-using Array.Test.Core;
+using Docker.Test.Core;
 
-namespace Array.Test.Operations.LogIn
+namespace Docker.Test.Operations.LogIn
 {
     public class LogInRequest : ServiceRequest
     {

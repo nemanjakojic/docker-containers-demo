@@ -1,6 +1,6 @@
 using System;
 
-namespace Array.Test
+namespace Docker.Test
 {
     public static class AppConstants 
     {

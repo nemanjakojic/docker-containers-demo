@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace Array.Test.Core
+namespace Docker.Test.Core
 {
     // Base class for all application operations. 
     // Implements a general request-handling flow in a Template Method fashion and handles errors. 

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Array.Test.Core;
+using Docker.Test.Core;
 
-namespace Array.Test.Operations.SignUp
+namespace Docker.Test.Operations.SignUp
 {
     public class DefaultPasswordValidator : IPasswordValidator
     {

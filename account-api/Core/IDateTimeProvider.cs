@@ -1,6 +1,6 @@
 using System;
 
-namespace Array.Test.Core 
+namespace Docker.Test.Core 
 {
     public interface IDateTimeProvider 
     {

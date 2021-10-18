@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Array.Test.Data.Entity 
+namespace Docker.Test.Data.Entity 
 {
     [Table("Account", Schema="app")]
     public class Account 

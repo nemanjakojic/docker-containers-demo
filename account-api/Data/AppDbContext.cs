@@ -1,7 +1,7 @@
-using Array.Test.Data.Entity;
+using Docker.Test.Data.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Array.Test.Data 
+namespace Docker.Test.Data 
 {
     public class AppDbContext : DbContext 
     {

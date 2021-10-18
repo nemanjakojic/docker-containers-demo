@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Array.Test.Core
+namespace Docker.Test.Core
 {
     // An abstraction of a hash generator.
     public interface IHashGenerator 

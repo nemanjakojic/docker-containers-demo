@@ -2,13 +2,13 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Array.Test.Core;
-using Array.Test.Data;
+using Docker.Test.Core;
+using Docker.Test.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace Array.Test.Operations.LogIn 
+namespace Docker.Test.Operations.LogIn 
 {
     public class LogInOperation : Operation<LogInRequest, LogInResult>
     {

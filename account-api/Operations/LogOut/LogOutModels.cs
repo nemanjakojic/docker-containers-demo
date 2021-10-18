@@ -1,6 +1,6 @@
-using Array.Test.Core;
+using Docker.Test.Core;
 
-namespace Array.Test.Operations.LogOut
+namespace Docker.Test.Operations.LogOut
 {
     public class LogOutRequest : ServiceRequest 
     {

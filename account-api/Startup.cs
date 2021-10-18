@@ -1,8 +1,8 @@
-using Array.Test.Core;
-using Array.Test.Data;
-using Array.Test.Operations.LogIn;
-using Array.Test.Operations.LogOut;
-using Array.Test.Operations.SignUp;
+using Docker.Test.Core;
+using Docker.Test.Data;
+using Docker.Test.Operations.LogIn;
+using Docker.Test.Operations.LogOut;
+using Docker.Test.Operations.SignUp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Array.Test
+namespace Docker.Test
 {
     public class Startup
     {

@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Array.Test.Core
+namespace Docker.Test.Core
 {
     // Creates and initializes an application operation of the type TOperation.
     public interface IOperationProvider 

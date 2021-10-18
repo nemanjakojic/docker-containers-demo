@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using BCrypt.Net;
 using BC = BCrypt.Net.BCrypt;
 
-namespace Array.Test.Core 
+namespace Docker.Test.Core 
 {
     // A Bcrypt-based hash generator.
     public class BCryptHashGenerator : IHashGenerator

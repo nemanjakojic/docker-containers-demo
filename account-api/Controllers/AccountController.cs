@@ -1,12 +1,12 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Array.Test.Data;
-using Array.Test.Core;
-using Array.Test.Operations.LogOut;
-using Array.Test.Operations.SignUp;
-using Array.Test.Operations.LogIn;
+using Docker.Test.Data;
+using Docker.Test.Core;
+using Docker.Test.Operations.LogOut;
+using Docker.Test.Operations.SignUp;
+using Docker.Test.Operations.LogIn;
 
-namespace Array.Test.Controllers
+namespace Docker.Test.Controllers
 {
     [ApiController]
     [Route("[controller]")]
