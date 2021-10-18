@@ -33,8 +33,8 @@ namespace Docker.Test.Operations.LogIn
         protected override ValidationResult ValidateRequest(LogInRequest request) 
         {
             // Sanitize input data
-            request.Username = request.Username?.Trim();
-            request.Password = request.Password?.Trim();
+            request.Username = request?.Username?.Trim();
+            request.Password = request?.Password?.Trim();
 
             if (string.IsNullOrWhiteSpace(request.Username)) 
             {
