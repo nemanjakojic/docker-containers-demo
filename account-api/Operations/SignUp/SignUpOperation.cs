@@ -34,8 +34,8 @@ namespace Array.Test.Operations.SignUp
         protected override ValidationResult ValidateRequest(SignUpRequest request) 
         {
             // Sanitize input data
-            request.Username = request.Username?.Trim();
-            request.Password = request.Password?.Trim();
+            request.Username = request?.Username?.Trim();
+            request.Password = request?.Password?.Trim();
 
             if (string.IsNullOrWhiteSpace(request.Username)) 
             {
