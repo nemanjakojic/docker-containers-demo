@@ -1,8 +1,3 @@
--- =========================================== --
-   Solution: kojic-backend-test-1
-   Submitted: Oct 10, 2021
--- =========================================== --
-
 This folder contains all necessary artifacts for deploying and running 
 the application services in multiple docker containers.
 
